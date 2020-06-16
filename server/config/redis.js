@@ -5,7 +5,6 @@ const redis = {
 	prefix: 'kp:',         // 存诸前缀
 	ttl: 60 * 60 * 23,     //过期时间
 	family: 4,
-	password: 'wanglin',
 	db: 0
 };
 const newRedis = new Redis(redis);

@@ -17,7 +17,9 @@ const getArticleList = async (ctx) => {
  * @returns {Promise.<void>}
  */
 const getPublishArticleList = async (ctx) => {
-	let articleList = await Articles.getPublishArticleList();
+	let params = ctx.query;
+	let {page, limit} = params;
+	let articleList = await Articles.getPublishArticleList(parseInt(page), parseInt(limit));
 	ctx.body = articleList;
 };
 
@@ -27,7 +29,9 @@ const getPublishArticleList = async (ctx) => {
  * @returns {Promise.<void>}
  */
 const getHotArticleList = async (ctx) => {
-	let articleList = await Articles.getHotArticleList();
+	let params = ctx.query;
+	let {page, limit} = params;
+	let articleList = await Articles.getHotArticleList(parseInt(page), parseInt(limit));
 	ctx.body = articleList;
 };
 
@@ -37,8 +41,10 @@ const getHotArticleList = async (ctx) => {
  * @returns {Promise.<void>}
  */
 const getFocusArticleList = async (ctx) => {
-	let id = ctx.params.id;
-	let articleList = await Articles.getFocusArticleList(id);
+	let params = ctx.query;
+	let {id, page, limit} = params;
+	let articleList = await Articles.getFocusArticleList(id, parseInt(page), parseInt(limit));
+	console.log('----getFocusArticleList koa----------->', articleList );
 	ctx.body = articleList;
 };
 

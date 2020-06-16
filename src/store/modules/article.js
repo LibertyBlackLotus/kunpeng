@@ -2,8 +2,12 @@ import article from '../../api/article';
 import {getUserId} from '../../utils/common';
 import {
 	ARTICLE_LIST_HOT,
+	ARTICLE_LIST_HOT_COUNT,
 	ARTICLE_LIST_LATEST,
+	ARTICLE_LIST_LATEST_PAGE,
+	ARTICLE_LIST_LATEST_PAGE_COUNT,
 	ARTICLE_LIST_FOCUS,
+	ARTICLE_LIST_FOCUS_COUNT,
 	ARTICLE_DETAIL,
 	ARTICLE_IS_LIKE,
 	ARTICLE_IS_COLLECT,
@@ -13,8 +17,12 @@ import {
 
 const state = {
 	hotList: [],     		//最热文章列表
+	hotListCount: 0,     		//最热文章列表
 	latestList: [],  		//最新文章列表
+	latestListPage: [],  	//最新文章列表分页
+	latestListPageCount: 0, //最新文章列表分页总页数
 	focusArticleList: [],   //关注的用户文章列表
+	focusArticleListCount: 0,   //关注的用户文章总页数
 	article: {},    		//文章详情
 	isLike: false,          //是否喜欢了文章
 	isCollected: false,     //是否收藏了文章
@@ -28,7 +36,12 @@ const getters = {
 const mutations = {
 	//最热文章列表
 	[ARTICLE_LIST_HOT](state, {list}) {
-		state.hotList = list;
+		state.hotList = [...state.hotList, ...list];
+	},
+
+	//最热文章总页数
+	[ARTICLE_LIST_HOT_COUNT](state, {count}) {
+		state.hotListCount = count;
 	},
 
 	//最新文章列表
@@ -36,9 +49,25 @@ const mutations = {
 		state.latestList = list;
 	},
 
+	//最新文章列表 分页获取
+	[ARTICLE_LIST_LATEST_PAGE](state, {list}) {
+		state.latestListPage = [...state.latestListPage, ...list];
+	},
+
+	//最新文章列表分页总页数
+	[ARTICLE_LIST_LATEST_PAGE_COUNT](state, {count}) {
+		console.log('---ARTICLE_LIST_LATEST_PAGE_COUNT--->', count );
+		state.latestListPageCount = count;
+	},
+
 	//关注的用户的文章列表
 	[ARTICLE_LIST_FOCUS](state, {list}) {
-		state.focusArticleList = list;
+		state.focusArticleList = [...state.focusArticleList, ...list];
+	},
+
+	//关注的用户的文章总页数
+	[ARTICLE_LIST_FOCUS_COUNT](state, {count}) {
+		state.focusArticleListCount = count;
 	},
 
 	//文章详情
@@ -70,9 +99,11 @@ const mutations = {
 
 const actions = {
 	//获取最热文章列表
-	getHotList({commit}) {
-		article.getHotList().then(res => {
-			commit(ARTICLE_LIST_HOT, {list: res});
+	getHotList({commit}, {page, limit}) {
+		return article.getHotList(page, limit).then(res => {
+			commit(ARTICLE_LIST_HOT, {list: res.rows});
+			commit(ARTICLE_LIST_HOT_COUNT, {count: res.count});
+			return Promise.resolve(res);
 		});
 	},
 
@@ -83,13 +114,25 @@ const actions = {
 		});
 	},
 
+	//获取最新文章列表分页
+	getLatestListPaged({commit}, {page, limit}) {
+		return article.getLatestListPaged(page, limit).then(res => {
+			commit(ARTICLE_LIST_LATEST_PAGE, {list: res.rows});
+			commit(ARTICLE_LIST_LATEST_PAGE_COUNT, {count: res.count});
+			return Promise.resolve(res);
+		});
+	},
+
 	/**
 	 * 获取关注的文章列表
 	 * @param id 当前用户id
 	 */
-	getFocusUserArticleList({commit}, {id}) {
-		article.getFocusList(id).then(res => {
-			commit(ARTICLE_LIST_FOCUS, {list: res});
+	getFocusUserArticleList({commit}, {id, page, limit}) {
+		return article.getFocusList(id, page, limit).then(res => {
+			console.log('---getFocusUserArticleList---->', res );
+			commit(ARTICLE_LIST_FOCUS, {list: res?.rows});
+			commit(ARTICLE_LIST_FOCUS_COUNT, {list: res?.count});
+			return Promise.resolve(res);
 		});
 	},
 

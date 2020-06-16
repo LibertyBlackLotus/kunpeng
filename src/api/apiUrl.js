@@ -1,6 +1,6 @@
 export const ARTICLE_LIST_HOT = '/api/articles/hot';          //获取最热文章列表
 export const ARTICLE_LIST_LATEST = '/api/articles/publish';   //获取最热文章列表
-export const ARTICLE_LIST_FOCUS = '/api/articles/focus/';     //获取关注用户文章列表
+export const ARTICLE_LIST_FOCUS = '/api/articles/focus';     //获取关注用户文章列表
 export const ARTICLE_DETAIL = '/api/articles/';       		  //获取文章详情
 export const ARTICLE_SEARCH = '/api/articles/search/';        //搜索文章
 export const ARTICLE_COMMENT = '/api/comments/list/';         //获取文章评论

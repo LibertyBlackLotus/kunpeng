@@ -10,8 +10,6 @@ const cors = require('koa2-cors');
 const serve = require('koa-static');
 const historyApiFallback = require('koa-history-api-fallback');
 const jwt = require('koa-jwt');
-// const session = require('koa-generic-session');
-// const redisStore = require('koa-redis');
 const auth = require('./server/routes/auth.js');
 const api = require('./server/routes/api.js');
 
@@ -19,12 +17,6 @@ const {SERVER_URL, SERVER_API_PORT, SERVER_COR} = require('./server/config/serve
 app.use(bodyParser());
 app.use(json());
 app.use(logger());
-// app.keys = ['key', 'keys'];
-// app.use(session({
-// 	store: redisStore({
-// 		// Options specified here
-// 	})
-// }));
 app.use(async (ctx, next) => {  //JWT 验证处理
 	try {
 		await next();
@@ -50,10 +42,7 @@ app.on('error', (err, ctx) => {
 
 app.use(cors({
 	origin: function (ctx) {
-		// return 'http://localhost:8081';
-		// return 'http://39.100.152.216:80';
 		return SERVER_COR;
-		// return '*';
 	},
 	exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
 	maxAge: 5,
@@ -66,7 +55,7 @@ app.use(jwt({ secret: 'lin' }).unless({  //jwt验证, 并跳过指定api
 	path: [
 		/^\/auth/,
 		'/api/articles/uploadImg',
-		'/api/articles/publish',
+		/^\/api\/articles\/publish/,
 		'/api/articles/hot',
 		/^\/api\/articles\/focus/,
 		'/api/articles/isLike',

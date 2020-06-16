@@ -11,7 +11,7 @@ const upload = require("../models/upload");
 router.get('/articles/list/:user_id', Articles.getArticleList);   //获取个人文章列表
 router.get('/articles/publish', Articles.getPublishArticleList);  //获取全部已发布文章列表 最新
 router.get('/articles/hot', Articles.getHotArticleList);          //获取最热文章列表
-router.get('/articles/focus/:id', Articles.getFocusArticleList);  //获取关注用户文章列表
+router.get('/articles/focus', Articles.getFocusArticleList);      //获取关注用户文章列表
 router.get('/articles/:id', Articles.readArticle);                //读取文章
 router.post('/articles', Articles.createArticle);                 //创建/保存文章
 router.delete('/articles', Articles.removeArticle);               //删除文章

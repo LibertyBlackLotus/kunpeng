@@ -6291,7 +6291,7 @@ invert-kv@^2.0.0:
   resolved "https://registry.npm.taobao.org/invert-kv/download/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha1-c5P1r6Weyf9fZ6J2INEcIm4+7AI=
 
-ioredis@^4.14.1:
+ioredis@^4.14.1, ioredis@^4.17.3:
   version "4.17.3"
   resolved "https://registry.npm.taobao.org/ioredis/download/ioredis-4.17.3.tgz#9938c60e4ca685f75326337177bdc2e73ae9c9dc"
   integrity sha1-mTjGDkymhfdTJjNxd73C5zrpydw=
@@ -11894,6 +11894,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
 
+vue-infinite-scroll@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npm.taobao.org/vue-infinite-scroll/download/vue-infinite-scroll-2.0.2.tgz#ca37a91fe92ee0ad3b74acf8682c00917144b711"
+  integrity sha1-yjepH+ku4K07dKz4aCwAkXFEtxE=
+
 vue-loader@^15.7.1:
   version "15.9.2"
   resolved "https://registry.npm.taobao.org/vue-loader/download/vue-loader-15.9.2.tgz#ae01f5f4c9c6a04bff4483912e72ef91a402c1ae"
@@ -11915,6 +11920,11 @@ vue-loader@^15.8.3:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-nav-tabs@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.npm.taobao.org/vue-nav-tabs/download/vue-nav-tabs-0.5.7.tgz#f9b8c410b43d9af1d92be6454f295af10c884e4a"
+  integrity sha1-+bjEELQ9mvHZK+ZFTyla8QyITko=
 
 vue-quill-editor@^3.0.6:
   version "3.0.6"
@@ -11944,6 +11954,16 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-swipe-tab@^2.0.2:
+  version "2.0.4"
+  resolved "https://registry.npm.taobao.org/vue-swipe-tab/download/vue-swipe-tab-2.0.4.tgz#f6edeac56588a647e3e503223b048319206cae0a"
+  integrity sha1-9u3qxWWIpkfj5QMiOwSDGSBsrgo=
+
+vue-tabs-component@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/vue-tabs-component/download/vue-tabs-component-1.5.0.tgz#9b2f02adbc9bb58395729d68c4906a795a20d728"
+  integrity sha1-my8CrbybtYOVcp1oxJBqeVog1yg=
 
 vue-template-compiler@^2.6.11:
   version "2.6.11"

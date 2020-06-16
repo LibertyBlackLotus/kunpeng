@@ -15,8 +15,12 @@ const axios = require('axios');
 
 export default {
 	//获取最热文章列表
-	getHotList() {
-		return axios.get(ARTICLE_LIST_HOT)
+	getHotList(page, limit) {
+		return axios.get(ARTICLE_LIST_HOT, {
+				params: {
+					page, limit
+				}
+			})
 			.then((res) => {
 				if (res.status == 200) {
 					return res.data;
@@ -34,13 +38,31 @@ export default {
 			});
 	},
 
+	//获取最新文章列表 分页
+	getLatestListPaged(page, limit) {
+		return axios.get(ARTICLE_LIST_LATEST, {
+				params: {
+					page, limit
+				}
+			})
+			.then((res) => {
+				if (res.status == 200) {
+					return res.data;
+				}
+			});
+	},
+
 	/**
 	 * 获取关注用户文章列表
 	 * @param id 用户id
 	 * @returns {Promise.<TResult>}
 	 */
-	getFocusList(id) {
-		return axios.get(ARTICLE_LIST_FOCUS + id)
+	getFocusList(id, page, limit) {
+		return axios.get(ARTICLE_LIST_FOCUS, {
+				params: {
+					id, page, limit
+				}
+			})
 			.then((res) => {
 				if (res.status == 200) {
 					return res.data;

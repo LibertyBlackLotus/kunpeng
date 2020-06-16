@@ -4,7 +4,16 @@
         <Header></Header>
         <Row class="homeContent">
             <i-col span="16">
-                <Tabs class="tabsContent"
+                <vue-tabs @tab-change="handleTabChange"
+                          active-tab-color="#409EFF"
+                          active-text-color="white">
+                    <v-tab v-for="item in tabList"
+                           :key="item.id"
+                           :title="item.tabItem">
+                        <component v-bind:is="item.component"></component>
+                    </v-tab>
+                </vue-tabs>
+                <!--<Tabs class="tabsContent"
                          v-model="activeName" >
                     <TabPane v-for="item in tabList"
                                  :key="item.id"
@@ -14,7 +23,7 @@
                             <component v-bind:is="item.component" :userId="userId"></component>
                         </keep-alive>
                     </TabPane>
-                </Tabs>
+                </Tabs>-->
             </i-col>
             <i-col span="7" offset="1">
                 <Recommend :userId="userId"></Recommend>
@@ -55,9 +64,9 @@
 	export default {
 		components: {
 			Header,
-			Hot,
-			Latest,
-			Focus,
+			// Hot,
+			// Latest,
+			// Focus,
 			Recommend,
 			Footer
 		},
@@ -83,6 +92,9 @@
 		},
 
 		methods: {
+			handleTabChange(tabIndex, newTab, oldTab){
+				//your code here
+			}
 		},
 	}
 </script>

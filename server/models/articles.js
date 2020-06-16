@@ -47,19 +47,21 @@ const getArticleList = (user_id) => {
  * 获取全部已发布文章
  * @returns {Promise<Model[]> | Promise.<Array.<Model>>}
  */
-const getPublishArticleList = () => {
-	const articles = Article.findAll({
+const getPublishArticleList = (page, limit) => {
+	const articles = Article.findAndCountAll({
 		where: {
 			status: 1
 		},
+		order: [
+			['article_date', 'DESC']
+		],
+		limit,
+		offset: page * limit,
 		include: [{
 			model: User,
 			as: 'User',
 			attributes: ['id', 'user_name', 'photo']
-		}],
-		order: [
-			['article_date', 'DESC']
-		]
+		}]
 	});
 	return articles;
 };
@@ -68,19 +70,21 @@ const getPublishArticleList = () => {
  * 获取最热文章列表
  * @returns {Promise<Model[]> | Promise.<Array.<Model>>}
  */
-const getHotArticleList = () => {
-	const articles = Article.findAll({
+const getHotArticleList = (page, limit) => {
+	const articles = Article.findAndCountAll({
 		where: {
 			status: 1
 		},
+		order: [
+			['article_views', 'DESC']
+		],
+		limit,
+		offset: page * limit,
 		include: [{
 			model: User,
 			as: 'User',
 			attributes: ['id', 'user_name', 'photo']
-		}],
-		order: [
-			['article_views', 'DESC']
-		]
+		}]
 	});
 	return articles;
 };
@@ -90,7 +94,7 @@ const getHotArticleList = () => {
  * @param id 用户id
  * @returns {Promise<Model[]> | Promise.<Array.<Model>>}
  */
-const getFocusArticleList = (id) => {
+const getFocusArticleList = (id, page, limit) => {
 	const articles = UserFriends.findAll({
 		where: {
 			user_id: id
@@ -102,21 +106,27 @@ const getFocusArticleList = (id) => {
 		friends.forEach((item) => {
 			friendsId.push(item.user_friends_id);
 		});
-		return Article.findAll({
-			where: {
-				user_id: {
-					[Op.or]: friendsId
-				}
-			},
-			include: [{
-				model: User,
-				as: 'User',
-				attributes: ['id', 'user_name', 'photo']
-			}],
-			order: [
-				['article_date', 'DESC']
-			]
-		})
+		if(friendsId.length != 0){
+			return Article.findAndCountAll({
+				where: {
+					user_id: {
+						[Op.or]: friendsId
+					}
+				},
+				order: [
+					['article_date', 'DESC']
+				],
+				limit,
+				offset: page * limit,
+				include: [{
+					model: User,
+					as: 'User',
+					attributes: ['id', 'user_name', 'photo']
+				}]
+			})
+		}else{
+			return {rows: [], count: 0};
+		}
 	});
 	return articles;
 };

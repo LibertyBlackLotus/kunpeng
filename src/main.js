@@ -5,6 +5,9 @@ import ViewUI from 'view-design';
 import { Message } from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import 'highlight.js/styles/monokai-sublime.css';
+import infiniteScroll from 'vue-infinite-scroll';
+import VueTabs from 'vue-nav-tabs';
+import 'vue-nav-tabs/themes/vue-tabs.css';
 import App from './App.vue';
 import store from './store';
 import router from './router';
@@ -19,7 +22,10 @@ Vue.filter('dateFormat', function (dateStr, pattern = "YYYY-MM-DD HH:mm") {
 Vue.filter('dateFormatDay', function (dateStr, pattern = "YYYY-MM-DD") {
 	return moment(dateStr).format(pattern);
 });
+
 Vue.use(ViewUI);
+Vue.use(infiniteScroll);
+Vue.use(VueTabs);
 
 // 响应拦截器，统一处理响应
 Axios.interceptors.response.use(res => {
