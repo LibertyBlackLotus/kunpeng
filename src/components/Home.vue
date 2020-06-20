@@ -10,7 +10,9 @@
                     <v-tab v-for="item in tabList"
                            :key="item.id"
                            :title="item.tabItem">
-                        <component v-bind:is="item.component"></component>
+                        <transition name="component-fade" mode="out-in">
+                            <component v-bind:is="item.component"></component>
+                        </transition>
                     </v-tab>
                 </vue-tabs>
                 <!--<Tabs class="tabsContent"
@@ -36,37 +38,43 @@
 
 <script>
 	import Vue from 'vue';
-	import Latest from './Latest';
-	// import BackToTop from './BackToTop';
+	// import Latest from './Latest';
     import {getUserId} from '../utils/common';
+	const Latest = () => import('./Latest.vue');
 	const Header = () => import('./Header.vue');
-	const Hot = () => import('./Hot.vue');
-	const Focus = () => import('./Focus.vue');
+	// const Hot = () => import('./Hot.vue');
+	// const Focus = () => import('./Focus.vue');
 	const Footer = () => import('./Footer.vue');
-	const Recommend = () => import('./Recommend.vue');
+	// const Recommend = () => import('./Recommend.vue');
 
-	// const Hot = Vue.component('Hot', function (resolve) {
-	// 	setTimeout(function () {
-	// 		require(['./Hot.vue'], resolve)
-	// 	}, 100);
-	// });
+	const Hot = Vue.component('Hot', function (resolve) {
+		setTimeout(function () {
+			require(['./Hot.vue'], resolve)
+		}, 100);
+	});
 	const BackToTop = Vue.component('BackToTop', function (resolve) {
 		setTimeout(function () {
 			require(['./BackToTop.vue'], resolve)
 		}, 100);
 	});
-	// const Focus = Vue.component('Focus', function (resolve) {
-	// 	setTimeout(function () {
-	// 		require(['./Focus.vue'], resolve)
-	// 	}, 100);
-	// });
+	const Focus = Vue.component('Focus', function (resolve) {
+		setTimeout(function () {
+			require(['./Focus.vue'], resolve)
+		}, 100);
+	});
+
+	const Recommend = Vue.component('Recommend', function (resolve) {
+		setTimeout(function () {
+			require(['./Recommend.vue'], resolve)
+		}, 100);
+	});
 
 	export default {
 		components: {
 			Header,
-			// Hot,
-			// Latest,
-			// Focus,
+			Hot,
+			Latest,
+			Focus,
 			Recommend,
 			Footer
 		},
@@ -99,13 +107,23 @@
 	}
 </script>
 
-<style lang="stylus" scoped>
-    .homeContent
-        width 1080px
-        margin 0 auto
-        margin-top 5px
-    .bannerImg
-        width 100%
+<style lang="scss" scoped>
+    .homeContent{
+        width: 1080px;
+        margin: 0 auto;
+        margin-top: 5px;
+    }
+
+    .bannerImg{
+        width: 100%;
+    }
+
+    .component-fade-enter-active, .component-fade-leave-active {
+        transition: opacity .3s ease;
+    }
+    .component-fade-enter, .component-fade-leave-to {
+        opacity: 0;
+    }
 
 
 </style>

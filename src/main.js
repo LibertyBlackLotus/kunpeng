@@ -53,8 +53,8 @@ Axios.interceptors.response.use(res => {
 			case 403:
 				Message.info('登录过期，请重新登录 ！');
 				// 清除token和用户信息
-				sessionStorage.setItem('myToken', null);
-				sessionStorage.setItem('userInfo', null);
+				localStorage.setItem('myToken', null);
+				localStorage.setItem('userInfo', null);
 				// TODO:: 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
 				setTimeout(() => {
 					router.replace({
@@ -76,7 +76,7 @@ Axios.interceptors.response.use(res => {
 
 //跳转路由统一处理
 router.beforeEach((to, from, next) => {
-	const token = sessionStorage.getItem('myToken');
+	const token = localStorage.getItem('myToken');
 	if(token){
 		Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token; // 全局设定header的token验证，注意Bearer后有个空格
 	}

@@ -141,7 +141,7 @@ const actions = {
 	 * @param id 文章id
 	 */
 	getArticleDetail({commit, dispatch}, {id}) {
-		article.getDetail(id).then(res => {
+		return article.getDetail(id).then(res => {
 			commit(ARTICLE_DETAIL, {detail: res});
 			let params =  {
 				user_id: getUserId(),
@@ -149,6 +149,7 @@ const actions = {
 			};
 			dispatch('checkIsLike', params);
 			dispatch('checkIsCollected', params);
+			return Promise.resolve(res);
 		});
 	},
 

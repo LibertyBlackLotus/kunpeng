@@ -9,9 +9,9 @@ module.exports = {
 					deleteOriginalAssets: false,
 				})],
 				externals: {
-					'vue': 'Vue',
-					'axios': 'axios',
-					'view-design': 'iview'
+					// 'vue': 'Vue',
+					// 'axios': 'axios',
+					// 'view-design': 'iview'
 				}
 			}
 		}

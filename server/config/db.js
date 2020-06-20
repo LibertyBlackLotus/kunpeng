@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('mysql://root:123@localhost/myblog', {
+const sequelize = new Sequelize('mysql://root:@localhost/myblog', {
 	define: {
 		timestamps: false
 	},

@@ -4,9 +4,12 @@
          v-infinite-scroll="loadMore"
          infinite-scroll-disabled="busy"
          infinite-scroll-distance="10">
-        <div v-for="(item) in focusArticleList" :key="item.article_id">
-            <ArticleItem :item="item"></ArticleItem>
-        </div>
+
+        <transition-group name="list" tag="p">
+            <div v-for="(item) in focusArticleList" :key="'focus'+item.article_id">
+                <ArticleItem :item="item"></ArticleItem>
+            </div>
+        </transition-group>
         <Tag v-if="noMore" size="large" class="noMore">无更多</Tag>
     </div>
 </template>
@@ -77,12 +80,22 @@
 	}
 </script>
 
-<style lang="stylus" scoped>
-    .articleList
-        margin 0 auto
-    .noMore
-        display flex
-        justify-content center
-        margin-top 10px
-        margin-bottom 20px
+<style lang="scss" scoped>
+    .articleList{
+        margin: 0 auto;
+    }
+    .noMore{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .list-enter-active, .list-leave-active {
+        transition: all 1s;
+    }
+    .list-enter, .list-leave-to {
+        opacity: 0;
+        transform: translateY(30px);
+    }
 </style>

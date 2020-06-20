@@ -126,10 +126,10 @@
 				this.$http.post('/api/uploadAvatar', body).then(res => {
 					if (res.status == '200') {
 						this.notify('更换成功！', 'success');
-						let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+						let userInfo = JSON.parse(localStorage.getItem('userInfo'));
 						userInfo.photo = res.data.url;
 						this.imageSave = userInfo.photo;
-						sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+						localStorage.setItem('userInfo', JSON.stringify(userInfo));
 					}
 				});
 			}

@@ -47,15 +47,15 @@
 				};
 				this.login(obj).then(res => {
 					if (res.data.success) {
-						sessionStorage.setItem('myToken', res.data.token);
-						sessionStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
+						localStorage.setItem('myToken', res.data.token);
+						localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
 						this.$Message.success({
 							content: '登录成功！'
 						});
 						this.$router.push('/home');
 					} else {
 						this.$Message.error(res.data.info);
-						sessionStorage.setItem('myToken', null);
+						localStorage.setItem('myToken', null);
 					}
 				});
 			},

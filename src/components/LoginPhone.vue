@@ -57,8 +57,12 @@
 					this.$Message.info('请填写手机号！');
 					return;
                 }
+				if(this.phone.length != 11){
+					this.$Message.info('请填写有效手机号！');
+					return;
+				}
 				let params = {
-					phone: this.phone,
+					phone: this.phone.trim(),
 				};
 				this.sendSms(params).then(res => {
                     this.isDisabled = true;
@@ -91,23 +95,27 @@
 					this.$Message.info('请填写手机号！');
 					return;
 				}
+				if(phone.length != 11){
+					this.$Message.info('请填写有效手机号！');
+					return;
+				}
 				if(!code){
 					this.$Message.info('请填写验证码！');
 					return;
 				}
-				let obj = {	phone, code	};
+				let obj = {	phone: phone.trim(), code: code.trim()};
 				this.loginPhone(obj).then(res => {
 					this.percent = 100;
 					if (res.data.success) {
-						sessionStorage.setItem('myToken', res.data.token);
-						sessionStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
+						localStorage.setItem('myToken', res.data.token);
+						localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
 						this.$Message.success({
 							content: '登录成功！'
 						});
 						this.$router.push('/home');
 					} else {
 						this.$Message.error(res.data.info);
-						sessionStorage.setItem('myToken', null);
+						localStorage.setItem('myToken', null);
 					}
 				});
 			},
